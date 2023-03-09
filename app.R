@@ -12,9 +12,11 @@ ui <- shinyUI(fluidPage(useShinyjs(),
   
   mainPanel(
     #TODO: change height back to 700
-    plotOutput("plot",height=600),
+    plotOutput("plot", height = 700),
+    
     br(),
     br(),
+    
     uiOutput("myBtn"),
     actionButton("btn1", label = ""),
     actionButton("btn2", label = ""),
@@ -23,11 +25,14 @@ ui <- shinyUI(fluidPage(useShinyjs(),
 
     br(),
     br(),
+    
     hidden(
-      div(id='text_div',
+      div(id = 'text_div',
     verbatimTextOutput("text"),
     )),
+    
     br(),
+    
     actionButton("next_btn", label = "Next"),
     
   )
@@ -41,7 +46,7 @@ server <- function(input, output, session) {
   imgDisp <- reactiveValues(func = NULL)
 
   observeEvent(input$next_btn, {
-    imgDisp$func <- sample(img_files,1)
+    imgDisp$func <- sample(img_files, 1)
   })
   
   
@@ -58,13 +63,13 @@ server <- function(input, output, session) {
   options <- reactiveValues(func = NULL)
   
   observeEvent(input$next_btn, {
-    options$func <- basename(sample(c(imgName$func,sample(file_path_sans_ext(img_files),3))))
+    options$func <- basename(sample(c(imgName$func, sample(file_path_sans_ext(img_files), 3))))
   })
   
 
   output$plot <- renderImage({
     validate(need(nchar(imgDisp$func)>0, "Click 'Next' to start the quiz!"))
-    list(src = imgDisp$func,height=600,width=1000)
+    list(src = imgDisp$func, height = 700, width = 1000)
   }, deleteFile = FALSE)
 
     
@@ -89,7 +94,7 @@ server <- function(input, output, session) {
     if (options$func[1] == imgName$func){
       output$text <- renderText({right})
     } else {
-      output$text <- renderText({c(wrong,imgName$func)})
+      output$text <- renderText({c(wrong, imgName$func)})
     }
   })
 
@@ -98,7 +103,7 @@ server <- function(input, output, session) {
     if (options$func[2] == imgName$func){
       output$text <- renderText({right})
     } else {
-      output$text <- renderText({c(wrong,imgName$func)})
+      output$text <- renderText({c(wrong, imgName$func)})
     }
   })
 
@@ -107,7 +112,7 @@ server <- function(input, output, session) {
     if (options$func[3] == imgName$func){
       output$text <- renderText({right})
     } else {
-      output$text <- renderText({c(wrong,imgName$func)})
+      output$text <- renderText({c(wrong, imgName$func)})
     }
   })
 
@@ -116,7 +121,7 @@ server <- function(input, output, session) {
     if (options$func[4] == imgName$func){
       output$text <- renderText({right})
     } else {
-      output$text <- renderText({c(wrong,imgName$func)})
+      output$text <- renderText({c(wrong, imgName$func)})
     }
   })
   
