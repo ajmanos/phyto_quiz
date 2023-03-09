@@ -2,7 +2,7 @@
 A quiz for freshwater and marine phytoplankton identification
 
 ```
-shiny::runGitHub(repo = 'phyto_quiz', username = 'ajmanos', subdir = 'R', 
-                 launch.browser = getOption('shiny.launch.browser', interactive()))
+shiny::runGitHub(repo = 'phyto_quiz', username = 'ajmanos',
+    launch.browser = getOption('shiny.launch.browser', interactive()))
 
 ```
