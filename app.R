@@ -3,7 +3,7 @@ library(tools)
 library(shinyjs)
 
 #dir <- "~/Desktop/phyto/photos/"
-img_files <- list.files(www, full.names = TRUE)
+img_files <- list.files(full.names = TRUE)
 
 ui <- shinyUI(fluidPage(useShinyjs(),
   
