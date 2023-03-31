@@ -9,9 +9,7 @@ ui <- shinyUI(fluidPage(useShinyjs(),
   
   titlePanel("Phytoplankton ID Quiz"),
   
-  
   mainPanel(
-    #TODO: change height back to 700
     plotOutput("plot", height = 700),
     
     br(),
@@ -34,31 +32,23 @@ ui <- shinyUI(fluidPage(useShinyjs(),
     br(),
     
     actionButton("next_btn", label = "Next"),
-    
   )
+ )
 )
-)
-
 
 server <- function(input, output, session) {
-  
   
   imgDisp <- reactiveValues(func = NULL)
 
   observeEvent(input$next_btn, {
     imgDisp$func <- sample(img_files, 1)
   })
-  
-  
-  
-  
+
   imgName <- reactiveValues(func = NULL)
   
   observeEvent(input$next_btn, {
     imgName$func <- basename(file_path_sans_ext(imgDisp$func))
   })
-  
-  
   
   options <- reactiveValues(func = NULL)
   
@@ -66,13 +56,11 @@ server <- function(input, output, session) {
     options$func <- basename(sample(c(imgName$func, sample(file_path_sans_ext(img_files), 3))))
   })
   
-
   output$plot <- renderImage({
     validate(need(nchar(imgDisp$func)>0, "Click 'Next' to start the quiz!"))
     list(src = imgDisp$func, height = 700, width = 1000)
   }, deleteFile = FALSE)
 
-    
   right <- "Correct!"
   wrong <- paste("Incorrect. The correct answer is")
   
@@ -83,7 +71,6 @@ server <- function(input, output, session) {
     updateActionButton(session,"btn3", label = options$func[3])
     updateActionButton(session,"btn4", label = options$func[4])
   })
-
 
   observeEvent(input$next_btn, {
     toggle('text_div')
@@ -124,9 +111,6 @@ server <- function(input, output, session) {
       output$text <- renderText({c(wrong, imgName$func)})
     }
   })
-  
-
-  
 }
 
 shinyApp(ui, server)
